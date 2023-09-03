@@ -5,7 +5,7 @@ import seaborn as sns
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 
-heart = pd.read_csv('AED_ProyectoFinal/knn_kdtree/heart.csv')
+heart = pd.read_csv('heart.csv')
 
 heart.describe() #Tipo de datos en el CSV, solo nos interesan los datos numericos
 heart.isnull().sum() #Cantidad de datos nulos
@@ -53,4 +53,6 @@ datos = total_df.drop(['HeartDisease'], axis=1)
 
 X = datos
 X_train,X_test = train_test_split(X,test_size=0.2,random_state=21)
-print(X_test.info())
+
+X_train_list = X_train.to_numpy().tolist()
+X_test_list = X_train.to_numpy().tolist()
