@@ -28,6 +28,7 @@ def kdTree(arr):
 def SED(X, Y):
     return sum((i-j)**2 for i, j in zip(X, Y))
 
+"""
 # Puntos rama
 def preOrden(tree, point, depth, points):
     k = len(point)
@@ -53,9 +54,9 @@ def preOrden(tree, point, depth, points):
       preOrden(tree.left, point, depth + 1, points)
       points.append(tree.value)
     return points
-
-
 """
+
+
 def preOrden(tree, point, depth, points):
     if not tree:
         return
@@ -66,7 +67,7 @@ def preOrden(tree, point, depth, points):
     preOrden(tree.right, point, depth + 1, points)
     points.append(tree.value)
     return points
-"""
+
 
 def arePointsSame(point1, point2):
     k = len(point1)
@@ -106,14 +107,12 @@ class KNNpoints:
       NNresult.append(result)
 
     NNresult.sort(key=operator.itemgetter(0))
-    NNresult = NNresult[:self.k]
-
-    print(NNresult)
+    NNresult = NNresult[:(self.k)]
 
     classResult = []
 
     for i in range(self.k):
-        classResult.append(NNresult[i].point)
+        classResult.append(NNresult[i].distance)
     return classResult
 
 #Visualizador de árbol
@@ -126,26 +125,4 @@ def viewTree(tree, cont = int):
       print(end = "\t \t")
     print(tree.value, "\n")
     viewTree(tree.left, cont + 1)
-  
-if __name__ == '__main__':
-  
-  cont = 0
-  tree = None
-  reference_points = [[100, 100], [40, 70], [175, 100], [90, 40], [70, 130], [150, 30], [140, 110]]
- 
-  tree = kdTree(reference_points)
-  point = [140, 90]
-  knn = KNNpoints(5, point, tree)
 
-  viewTree(tree, cont)
-
-  print("\n")
-  print("\n")
-
-  result = knn.predict()
-
-  print(result)
-  print("\n")
-
-  print(preOrden(tree,point, 0, points=[]))
-  print("\n")

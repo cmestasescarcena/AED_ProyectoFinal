@@ -55,4 +55,4 @@ X = datos
 X_train,X_test = train_test_split(X,test_size=0.2,random_state=21)
 
 X_train_list = X_train.to_numpy().tolist()
-X_test_list = X_train.to_numpy().tolist()
+X_test_list = X_test.to_numpy().tolist()
