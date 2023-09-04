@@ -28,6 +28,20 @@ def kdTree(arr):
 def SED(X, Y):
     return sum((i-j)**2 for i, j in zip(X, Y))
 
+"""
+def search_points(tree, point, depth, points):
+    if not tree:
+        return
+    else:
+      search_points(tree.left, point, depth + 1, points)
+      points.append(tree.value)   
+
+    search_points(tree.right, point, depth + 1, points)
+    points.append(tree.value)
+    return points
+"""
+
+
 def search_points(tree, point, depth, points):
   k = len(point)
   cd = depth % k
@@ -55,6 +69,7 @@ def search_points(tree, point, depth, points):
     search_points(tree=away, point=point, depth=depth + 1, points=points)
   
   return(points)
+
 
 # Set de lista de puntos
 def pointList(arr):
@@ -104,3 +119,4 @@ def viewTree(tree, cont = int):
       print(end = "\t \t")
     print(tree.value, "\n")
     viewTree(tree.left, cont + 1)
+
