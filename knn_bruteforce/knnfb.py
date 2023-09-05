@@ -1,10 +1,23 @@
+import os
+
+ruta_absoluta = os.path.abspath('')
+print (ruta_absoluta)
+
+import sys
+#print(sys.path)
+sys.path.append(ruta_absoluta)
+#print(sys.path)
+
+
 import csv
+from knn_kdtree import dataSet
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from collections import Counter
 import matplotlib.pyplot as plt
 import time
+
 
 class KNNFuerzaBruta:
     def __init__(self, k=3):
@@ -41,24 +54,29 @@ def cargar_datos_desde_csv(archivo):
     return X, y
 
 if __name__ == "__main__":
-    X, y = cargar_datos_desde_csv('iris.csv')
+    #X, y = cargar_datos_desde_csv('heart.csv')
 
-    X_entrenamiento, X_prueba, y_entrenamiento, y_prueba = train_test_split(X, y, test_size=0.2, random_state=42)
+    #X_entrenamiento, X_prueba, y_entrenamiento, y_prueba = train_test_split(X, y, test_size=0.2, random_state=42)
 
     eficiencias = []
     
     tiempos = []
 
-    for k in range(3, 11):
+    X_train_array = np.array(dataSet.X_train_list)
+    X_test_array = np.array(dataSet.X_test)
+    y_train_array = np.array(dataSet.y_train)
+    y_test_array = np.array(dataSet.y_test)
+    
+    for k in range(1, 16):
         knn = KNNFuerzaBruta(k=k)
         
         inicio_tiempo = time.time()
         
-        knn.entrenar(X_entrenamiento, y_entrenamiento)
+        knn.entrenar(X_train_array, y_train_array)
 
-        y_prediccion = knn.predecir(X_prueba)
+        y_prediccion = knn.predecir(X_test_array)
 
-        precision = accuracy_score(y_prueba, y_prediccion)
+        precision = accuracy_score(y_test_array, y_prediccion)
         eficiencias.append(precision)
         
         fin_tiempo = time.time()
@@ -66,12 +84,22 @@ if __name__ == "__main__":
         tiempo_procesamiento = (fin_tiempo - inicio_tiempo) * 1000
         tiempos.append(tiempo_procesamiento)
 
-    for k, eficiencia in enumerate(eficiencias, start=3):
+    for k, eficiencia in enumerate(eficiencias, start=1):
         print(f'Eficiencia para k={k}: {eficiencia * 100:.2f}% - Tiempo de procesamiento: {tiempos[k-3]:.2f} ms')
 
-    plt.figure(figsize=(10, 6))
-    plt.bar(range(3, 11), eficiencias)
+    """plt.figure(figsize=(10, 6))
+    plt.scatter(range(1, 16), eficiencias, marker='o', c='blue', label='Eficiencia')
     plt.xlabel('Número de Vecinos (k)')
-    plt.ylabel('Eficiencia')
+    plt.ylabel('EfDiciencia')
     plt.title('Eficiencia del Clasificador K-NN para Diferentes Valores de k')
+    plt.legend()
+    plt.grid(True)
+    plt.show()"""
+    
+    plt.figure(figsize=(10, 6))
+    plt.scatter(X_test_array[:, 0], X_test_array[:, 1], c=y_prediccion, cmap='coolwarm', marker='.', s=100, label='Predicción')
+    plt.xlabel('Característica 1')
+    plt.ylabel('Característica 2')
+    plt.title('Visualización de Datos de Prueba y Predicciones (k=3)')
+    plt.legend()
     plt.show()
