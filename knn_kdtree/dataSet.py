@@ -5,7 +5,12 @@ import seaborn as sns
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 
-heart = pd.read_csv('heart.csv')
+ruta_relativa = 'knn_kdtree/heart.csv'
+import os
+
+ruta_absoluta = os.path.abspath(ruta_relativa)
+
+heart = pd.read_csv(ruta_absoluta)
 
 heart.describe() #Tipo de datos en el CSV, solo nos interesan los datos numericos
 heart.isnull().sum() #Cantidad de datos nulos
@@ -49,10 +54,13 @@ dataCompList = dataCompEsc.tolist()
 total_df = pd.DataFrame(dataCompList, columns = ['Age', 'RestingBP', 'Cholesterol', 'FastingBS', 'MaxHR', 'Oldpeak', 'HeartDisease', 'Sex_M', 'ChestPainType_ATA', 'ChestPainType_NAP', 'ChestPainType_TA', 'RestingECG_Normal', 'RestingECG_ST', 'ExerciseAngina_Y', 'ST_Slope_Flat', 'ST_Slope_Up'])
 
 datos = total_df.drop(['HeartDisease'], axis=1)
-
+y = total_df['HeartDisease']
 
 X = datos
-X_train,X_test = train_test_split(X,test_size=0.2,random_state=21)
+X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=21)
+
 
 X_train_list = X_train.to_numpy().tolist()
 X_test_list = X_test.to_numpy().tolist()
+
+y_test_list = y_test.to_numpy().tolist()
