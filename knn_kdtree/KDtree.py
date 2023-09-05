@@ -29,53 +29,47 @@ def SED(X, Y):
     return sum((i-j)**2 for i, j in zip(X, Y))
 
 """
-# Puntos rama
-def preOrden(tree, point, depth, points):
-    k = len(point)
-    cd = depth % k
+def search_points(tree, point, depth, points):
     if not tree:
         return
-    
-    if arePointsSame(tree.value, point):
-        points.append(tree.value)
-        return points
- 
-    if point[cd] < tree.value[cd]:
-      preOrden(tree.left, point, depth + 1, points)
-      points.append(tree.value)
     else:
-      preOrden(tree.right, point, depth + 1, points)
-      points.append(tree.value)
-    
-    if point[cd] - tree.value[cd] < SED(point, tree.value):
-      preOrden(tree.right, point, depth + 1, points)
-      points.append(tree.value)
-    else:
-      preOrden(tree.left, point, depth + 1, points)
-      points.append(tree.value)
+      search_points(tree.left, point, depth + 1, points)
+      points.append(tree.value)   
+
+    search_points(tree.right, point, depth + 1, points)
+    points.append(tree.value)
     return points
 """
 
 
-def preOrden(tree, point, depth, points):
-    if not tree:
-        return
-    else:
-      preOrden(tree.left, point, depth + 1, points)
-      points.append(tree.value)   
+def search_points(tree, point, depth, points):
+  k = len(point)
+  cd = depth % k
+  best = None
+  if tree is None:
+    return
 
-    preOrden(tree.right, point, depth + 1, points)
-    points.append(tree.value)
-    return points
+  points.append(tree.value)
 
+  distance = SED(tree.value, point)
+  if best is None or distance < best.distance:
+    best = NNRecord(point=tree.value, distance=distance)
+  
+  diff = point[cd] - tree.value[cd]
+  if diff <= 0:
+    close = tree.left
+    away = tree.right
+  else:
+    close = tree.right
+    away = tree.left
+  
+  search_points(tree=close, point=point, depth=depth + 1, points=points)
 
-def arePointsSame(point1, point2):
-    k = len(point1)
-    for i in range(k):
-        if point1[i] != point2[i]:
-            return False
+  if diff**2 < best.distance:
+    search_points(tree=away, point=point, depth=depth + 1, points=points)
+  
+  return(points)
 
-    return True
 
 # Set de lista de puntos
 def pointList(arr):
@@ -94,7 +88,7 @@ class KNNpoints:
     self.tree = tree
     self.point = None
     self.arr1 = []
-    self.points = pointList(preOrden(self.tree, self.newPoint, 0, self.arr1))
+    self.points = pointList(search_points(self.tree, self.newPoint, 0, self.arr1))
 
   def predict(self):
     result = None
@@ -107,12 +101,12 @@ class KNNpoints:
       NNresult.append(result)
 
     NNresult.sort(key=operator.itemgetter(0))
-    NNresult = NNresult[:(self.k)]
+    NNresult = NNresult[:self.k]
 
     classResult = []
 
     for i in range(self.k):
-        classResult.append(NNresult[i].distance)
+        classResult.append(NNresult[i].point)
     return classResult
 
 #Visualizador de árbol

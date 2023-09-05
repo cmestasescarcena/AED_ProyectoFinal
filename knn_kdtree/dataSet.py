@@ -62,5 +62,3 @@ X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=
 
 X_train_list = X_train.to_numpy().tolist()
 X_test_list = X_test.to_numpy().tolist()
-
-y_test_list = y_test.to_numpy().tolist()
