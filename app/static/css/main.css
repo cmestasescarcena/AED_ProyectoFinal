@@ -20,9 +20,11 @@ h1 {
 }
 
 .cont1{
-
+    outline: 6px solid yellow;
+    display:  grid;
+    grid-template-columns: 100%;
 }
 
-.input-group, .flex-nowrap{
-    padding: 100px;
+.input-group, .flex-nowrap, .form{
+    padding: 5px 40px 5px 40px;
 }

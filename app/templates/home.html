@@ -14,11 +14,154 @@
 
 <body>
     <h1>HEART DISEASE CLASSIFICATION</h1>
+    <div class="cont1">
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">Age</span>
+            <input type="text" class="form-control" placeholder="Age of the patient [years]" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
 
-    <div class="input-group flex-nowrap">
-        <span class="input-group-text" id="addon-wrapping">@</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+        <div class="form">
+            <div>Sex of the patient:</div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Male
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Female
+                </label>
+              </div>
+        </div>
+
+        <div class="form">
+            <div>Chest pain type:</div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Tipical Angina
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Atypical Angina
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Non-Anginal Pain
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Asymptomatic
+                </label>
+              </div>
+        </div>
+
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">RestingBP</span>
+            <input type="text" class="form-control" placeholder="Resting blood pressure [mm Hg]" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">Cholesterol</span>
+            <input type="text" class="form-control" placeholder="Serum cholesterol [mm/dl]" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+
+        <div class="form">
+            <div>Fasting blood sugar:</div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  FastingBS > 120 mg/dl
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Otherwise
+                </label>
+              </div>
+        </div>
+
+        <div class="form">
+            <div>Resting Electrocardiogram Results:</div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Normal
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Having ST-T wave abnormality
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Showing Probable or definite left ventricular hypertrophy by Estes' criteria
+                </label>
+              </div>
+        </div>
+
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">MaxHR</span>
+            <input type="text" class="form-control" placeholder="Maximum heart rate achieved [Numeric value between 60 and 202" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+
+        <div class="form">
+            <div>Exercise-induced angina:</div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Yes
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  No
+                </label>
+              </div>
+        </div>
+
+        <div class="input-group flex-nowrap">
+            <span class="input-group-text" id="addon-wrapping">Oldpeak</span>
+            <input type="text" class="form-control" placeholder="ST [Numeric value measured in depression]" aria-label="Username" aria-describedby="addon-wrapping">
+        </div>
+
+        <div class="form">
+            <div>Slope of the peak exercise ST segment :</div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Upsloping
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Flat
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Downsloping
+                </label>
+              </div>
+        </div>
+
     </div>
+
 
 </body>
 
