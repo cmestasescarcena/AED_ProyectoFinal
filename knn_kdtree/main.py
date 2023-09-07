@@ -9,7 +9,7 @@ if __name__ == '__main__':
     kd_Tree = KDtree.kdTree(dataSet.X_train_list)
 
     #K-vecinos
-    kVecinos = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    kVecinos = [35]
 
     #Columnas de data frame 
     col_df = ['Age', 'RestingBP', 'Cholesterol', 'FastingBS', 'MaxHR', 'Oldpeak', 'HeartDisease', 'Sex_M', 'ChestPainType_ATA', 'ChestPainType_NAP', 'ChestPainType_TA', 'RestingECG_Normal', 'RestingECG_ST', 'ExerciseAngina_Y', 'ST_Slope_Flat', 'ST_Slope_Up']

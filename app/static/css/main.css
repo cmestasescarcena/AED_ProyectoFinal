@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@600&display=swap');
 
 
 body {
@@ -8,23 +9,57 @@ body {
     /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #CFDEF3, #E0EAFC);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 }
 
 h1 {
     font-size: 80px;
     text-align: center;
     font-family: 'Fjalla One', sans-serif;
-    padding: 30px;
+    padding-top: 20px;
+    padding-bottom: 10px;
     color: #54585f;
+    border-bottom: 10px solid #b8c4d6;
 }
 
-.cont1{
-    outline: 6px solid yellow;
+.cont{
+    padding-top: 20px;
     display:  grid;
-    grid-template-columns: 100%;
+    grid-template-columns: 50% 50%;
 }
 
-.input-group, .flex-nowrap, .form{
-    padding: 5px 40px 5px 40px;
+.cont1, .cont2{
+    margin-bottom: 30px;
+}
+
+.input-group, .flex-nowrap{
+    padding: 5px 50px 5px 50px;
+    height: 47.5px;
+}
+
+.form{
+    margin: 10px 50px 10px 50px;;
+    background-color: white;
+    border:  1px solid #dee2e6 ;
+    border-radius: 5px
+}
+
+.formtittle{
+    padding: 5px 10px 5px 10px;
+    background-color:  #f8f9fa;
+    border-bottom: 1px solid  #dee2e6;
+}
+
+.form-check{
+    padding: 0px 60px 10px 60px;
+}
+.contResult{
+    text-align: center;
+}
+
+.formTextResult{
+    font-size: 25px;
+    padding-bottom: 10px;
+    text-align: center;
+    font-family: 'Signika Negative', sans-serif;
+    color: #54585f;
 }
