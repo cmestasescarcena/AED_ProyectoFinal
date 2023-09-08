@@ -5,12 +5,7 @@ import seaborn as sns
 from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 
-ruta_relativa = 'knn_kdtree/heart.csv'
-import os
-
-ruta_absoluta = os.path.abspath(ruta_relativa)
-
-heart = pd.read_csv(ruta_absoluta)
+heart = pd.read_csv('heart.csv')
 
 heart.describe() #Tipo de datos en el CSV, solo nos interesan los datos numericos
 heart.isnull().sum() #Cantidad de datos nulos
@@ -63,4 +58,5 @@ X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.2,random_state=
 X_train_list = X_train.to_numpy().tolist()
 X_test_list = X_test.to_numpy().tolist()
 
-print(X_train)
+pd.DataFrame(X_test).to_csv(index=False)
+pd.DataFrame(y_test)
