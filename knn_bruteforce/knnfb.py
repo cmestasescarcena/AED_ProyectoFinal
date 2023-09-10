@@ -1,12 +1,21 @@
 import os
 
 ruta_absoluta = os.path.abspath('')
-print (ruta_absoluta)
-
+#print (ruta_absoluta)
+"""
 import sys
 #print(sys.path)
 sys.path.append(ruta_absoluta)
 #print(sys.path)
+"""
+ruta_absoluta = os.path.abspath('')
+#print (ruta_absoluta)
+from pathlib import Path
+ruta_absoluta = str(Path(ruta_absoluta).parents[1]) 
+#print (ruta_absoluta+'/AED_ProyectoFinal')
+
+import sys
+sys.path.append(ruta_absoluta+'/AED_ProyectoFinal')
 
 
 import csv

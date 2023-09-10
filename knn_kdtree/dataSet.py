@@ -7,9 +7,16 @@ from sklearn.model_selection import train_test_split
 
 ruta_relativa = 'knn_kdtree/heart.csv'
 import os
+ruta_absoluta = os.path.abspath('')
+#print (ruta_absoluta)
+from pathlib import Path
+ruta_absoluta = str(Path(ruta_absoluta).parents[0]) 
+#print (ruta_absoluta)
 
-ruta_absoluta = os.path.abspath(ruta_relativa)
-
+ruta_absoluta = ruta_absoluta + '/' + 'knn_kdtree/heart.csv'
+#print (ruta_absoluta)
+#path = str(Path(ruta_absoluta).parents[0])
+#print (path)
 heart = pd.read_csv(ruta_absoluta)
 
 heart.describe() #Tipo de datos en el CSV, solo nos interesan los datos numericos
