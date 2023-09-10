@@ -3,75 +3,137 @@ import collections
 import operator
 from collections import Counter
 
-#Constructor de KD tree
-BT = collections.namedtuple("BT", ["value", "left", "right"])
+#CREACION DE KD TREE
+#**----------------------------------------------------**#
+class Node:
+    def __init__(self, point, father):
+        self.point = point
+        self.left = None
+        self.right = None
+        self.father = father
 
-def kdTree(arr):
-  k = len(arr[1])
+def newNode(point, father):
+    return Node(point, father)
 
-  def build(*, arr, depth):
-    if len(arr) == 0:
-      return None
+def insert(root, points, depth, father):
+    if len(points) == 0:
+        return None
     
-    arr.sort(key=operator.itemgetter(depth % k))
+    k = len(points[0])
 
-    middle = len(arr) // 2
+    points.sort(key=operator.itemgetter(depth % k))
+    middle = len(points) // 2
 
-    return BT(
-      value = arr[middle],
-      left = build(arr = arr[:middle], depth = depth + 1),
-      right = build(arr= arr[middle + 1:], depth = depth + 1)
-    )
-  return build(arr = list(arr), depth = 0)
+    if root is None:
+        root = newNode(points[middle], father)
+    
+    if root.left is None:
+        root.left = insert(root.left, points[:middle], depth + 1, root)
 
-# Square Euclidean distance
-def SED(X, Y):
-    return sum((i-j)**2 for i, j in zip(X, Y))
+    if root.right is None:
+        root.right = insert(root.right, points[middle + 1:], depth + 1, root)
 
-"""
-def search_points(tree, point, depth, points):
-    if not tree:
+    return root
+#**----------------------------------------------------**#
+
+
+#BUSQUEDA DE RAMA ELEMENTO
+#**----------------------------------------------------**#
+def searchRec(root, point, depth, arrPoints):
+    k = len(point)
+    
+    if not root:
         return
+    
+    cd = depth % k
+
+    if root.point[cd] < point[cd]:
+        searchRec(root.right, point, depth + 1, arrPoints)
     else:
-      search_points(tree.left, point, depth + 1, points)
-      points.append(tree.value)   
+        searchRec(root.left, point, depth + 1, arrPoints)
 
-    search_points(tree.right, point, depth + 1, points)
-    points.append(tree.value)
-    return points
-"""
+    arrPoints.append(root.point)
+    return arrPoints
+
+def search(root, point, arrPoints):
+    return searchRec(root, point, 0, arrPoints)
+#**----------------------------------------------------**#
+
+#ELIMINAR ELEMENTO DE ARBOL
+#**----------------------------------------------------**#
+def minleft(root):
+    if root is None:
+      return None
+    if root.left is not None:
+      return minleft(root.left)
+    else:
+      return root
+
+def replaceNd(root, newroot):
+    if root.father is not None:
+        if root.point == root.father.left.point:
+          root.father.left = newroot
+        elif root.point == root.father.right.point:
+          root.father.right = newroot
+    
+    if newroot is not None:
+       newroot.father = root.father
+
+def dropNode(root):
+   root.left = None
+   root.right = None
+   del root
+   
+    
+def deleteNode(delNode):
+    if delNode.left is not None and delNode.right is not None:
+        minNode = minleft(delNode.right)
+        delNode.point = minNode.point
+        deleteNode(minNode)
+
+    elif delNode.left is not None:
+        replaceNd(delNode, delNode.left)
+        dropNode(delNode)
+
+    elif delNode.right is not None:
+        replaceNd(delNode, delNode.right)
+        dropNode(delNode)
+    else:
+        replaceNd(delNode, None)
+        dropNode(delNode)
 
 
-def search_points(tree, point, depth, points):
+def delt(root, point, depth):
   k = len(point)
   cd = depth % k
-  best = None
+
+  if root is None:
+      return
+  elif point[cd] < root.point[cd]:
+      delt(root.left, point, depth + 1)
+
+  elif point[cd] > root.point[cd]:
+      delt(root.right, point, depth + 1)
+
+  else:
+      deleteNode(root)
+#**----------------------------------------------------**#
+
+
+
+#VISUALIZADOR DE ARBOL
+#**----------------------------------------------------**#
+def viewTree(tree, cont):
   if tree is None:
     return
-
-  points.append(tree.value)
-
-  distance = SED(tree.value, point)
-  if best is None or distance < best.distance:
-    best = NNRecord(point=tree.value, distance=distance)
-  
-  diff = point[cd] - tree.value[cd]
-  if diff <= 0:
-    close = tree.left
-    away = tree.right
   else:
-    close = tree.right
-    away = tree.left
-  
-  search_points(tree=close, point=point, depth=depth + 1, points=points)
+    viewTree(tree.right, cont + 1)
+    for i in range(cont):
+      print(end = "\t \t")
+    print(tree.point, "\n")
+    viewTree(tree.left, cont + 1)
+#**----------------------------------------------------**#
 
-  if diff**2 < best.distance:
-    search_points(tree=away, point=point, depth=depth + 1, points=points)
-  
-  return(points)
-
-
-# Set de lista de puntos
 def pointList(arr):
   arr2 = arr[0:1]
   for i in range(len(arr)):
@@ -79,44 +141,27 @@ def pointList(arr):
         arr2.append(arr[i])
   return arr2
 
-NNRecord = collections.namedtuple("NNRecord", ["distance", "point"])
 
+def SED(X, Y):
+   return sum((i-j)**2 for i, j in zip(X, Y))
+
+NNRecord = collections.namedtuple("NNRecord", ["point", "distance"])
 class KNNpoints:
-  def __init__(self, k, newPoint, tree):
+  def __init__(self, k):
     self.k = k
-    self.newPoint = newPoint
-    self.tree = tree
-    self.point = None
-    self.arr1 = []
-    self.points = pointList(search_points(self.tree, self.newPoint, 0, self.arr1))
+    self.root = None
 
-  def predict(self):
-    result = None
-    NNresult = []
+  def trainKNN(self, yTrain):
+      self.yTrain = np.array(yTrain)
 
+  def predictPoints(self, treeTrain, pointTest):
+        X_entrenamiento = []
+        
+        X_entrenamiento = pointList(search(treeTrain, pointTest, X_entrenamiento))
 
-    for point in self.points:
-      distance = SED(point, self.newPoint)
-      result = NNRecord(point=point, distance=distance)
-      NNresult.append(result)
+        distancias = [SED(pointTest, x_entrenamiento) for x_entrenamiento in X_entrenamiento]
+        k_indices = np.argsort(distancias)[:self.k]
+        k_etiquetas_cercanas = [self.yTrain[i] for i in k_indices]
+        etiqueta_predominante = Counter(k_etiquetas_cercanas).most_common(1)[0][0]
 
-    NNresult.sort(key=operator.itemgetter(0))
-    NNresult = NNresult[:self.k]
-
-    classResult = []
-
-    for i in range(self.k):
-        classResult.append(NNresult[i].point)
-    return classResult
-
-#Visualizador de árbol
-def viewTree(tree, cont = int):
-  if tree is None:
-    return
-  else:
-    viewTree(tree.right, cont + 1)
-    for i in range(cont):
-      print(end = "\t \t")
-    print(tree.value, "\n")
-    viewTree(tree.left, cont + 1)
-
+        return etiqueta_predominante
