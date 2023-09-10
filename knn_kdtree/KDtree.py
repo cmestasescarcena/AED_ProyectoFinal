@@ -1,5 +1,4 @@
 import numpy as np
-import collections
 import operator
 from collections import Counter
 
@@ -145,7 +144,6 @@ def pointList(arr):
 def SED(X, Y):
    return sum((i-j)**2 for i, j in zip(X, Y))
 
-NNRecord = collections.namedtuple("NNRecord", ["point", "distance"])
 class KNNpoints:
   def __init__(self, k):
     self.k = k
